@@ -32,7 +32,9 @@ class LoginViewController: UIViewController {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 self.performSegueWithIdentifier("LoginSegue", sender: nil)
-            } else {                
+            } else {
+                let alert = UIAlertView(title: "Try Again", message: "Please check your login information and try again", delegate: nil, cancelButtonTitle: "Okay")
+                alert.show()
             }
         }
     }

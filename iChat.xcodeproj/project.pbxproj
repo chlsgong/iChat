@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19D5363E1B79D28000F89109 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5363D1B79D28000F89109 /* SignUpViewController.swift */; };
 		D1302A0C1B5B2D0800904C28 /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1302A0B1B5B2D0800904C28 /* MessageListViewController.swift */; };
 		D1302A0E1B5B2D4400904C28 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1302A0D1B5B2D4400904C28 /* SearchViewController.swift */; };
 		D15961B91B2A49EF0032E02B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15961B81B2A49EF0032E02B /* LoginViewController.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19D5363D1B79D28000F89109 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D1302A0B1B5B2D0800904C28 /* MessageListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		D1302A0D1B5B2D4400904C28 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D15961B81B2A49EF0032E02B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				D194E5F81B17E78F00ACAED5 /* AppDelegate.swift */,
 				D15961B81B2A49EF0032E02B /* LoginViewController.swift */,
+				19D5363D1B79D28000F89109 /* SignUpViewController.swift */,
 				D194E63B1B18138700ACAED5 /* ViewController.swift */,
 				D1302A0B1B5B2D0800904C28 /* MessageListViewController.swift */,
 				D1302A0D1B5B2D4400904C28 /* SearchViewController.swift */,
@@ -297,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19D5363E1B79D28000F89109 /* SignUpViewController.swift in Sources */,
 				D1302A0E1B5B2D4400904C28 /* SearchViewController.swift in Sources */,
 				D15961B91B2A49EF0032E02B /* LoginViewController.swift in Sources */,
 				D194E63C1B18138700ACAED5 /* ViewController.swift in Sources */,
