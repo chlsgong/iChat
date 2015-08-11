@@ -16,7 +16,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var usernameTableView: UITableView!
     
     let searchSegueID = "SearchSegue"
-    var userArray:[String]!
+    var userArray:[String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
