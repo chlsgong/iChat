@@ -9,17 +9,29 @@
 import UIKit
 import Parse
 import Bolts
+import LayerKit
+
+
+public let LayerAppIDString = "layer:///apps/staging/82be69ca-4063-11e5-8298-5b167101541c"
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LYRClientDelegate {
 
     var window: UIWindow?
+    var layerClient: LYRClient!
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         Parse.setApplicationId("diR324n1rVjjXANPEOSDNHU7kQ8JqRWbyHLnJJkh", clientKey: "Sl9Sde3uhBigZu1xy6p2XAz1gJA1Cup6QXMSBgcW")
+        
+        var appID: NSURL!
+        appID = NSURL(fileURLWithPath: LayerAppIDString)
+        layerClient = LYRClient(appID: appID)
+        layerClient.delegate = self
+        layerClient.autodownloadMIMETypes = NSSet(
+        
         return true
     }
 
@@ -44,6 +56,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    //MARK: Layer Authentication Methods
+    
+    func authenticateLayerWithUserID(userID: String, completion: (success: Bool, error: NSError?) -> Void)
+    {
+    
+    }
+    
+    
+    //MARK: Layer Client Delegate Methods
+    
+    func layerClient(client: LYRClient!, didReceiveAuthenticationChallengeWithNonce nonce: String!) {
+        println("Layer Client did recieve authentication challenge with nonce: \(nonce)")
+    }
+    
+    func layerClient(client: LYRClient!, didAuthenticateAsUserID userID: String!) {
+        println("Layer Client did recieve authentication nonce");
+    }
+    
+    func layerClientDidDeauthenticate(client: LYRClient!) {
+        println("Layer Client did deauthenticate")
+    }
+    
 
 
 }

@@ -1,0 +1,10 @@
+PODS:
+  - LayerKit (0.15.0)
+
+DEPENDENCIES:
+  - LayerKit
+
+SPEC CHECKSUMS:
+  LayerKit: ac8c5c227a06e2ea5e042303b80e931a8ffe3568
+
+COCOAPODS: 0.38.2
