@@ -15,8 +15,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var dockViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messageNavigationItem: UINavigationItem!
     
-    var messageArray:[String] = [String]()
+    var messageArray: [String] = [String]()
+    var recipient: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.messageTableView.dataSource = self
         
         self.messageTextField.delegate = self
+        
+        self.messageNavigationItem.title = self.recipient
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tableViewTapped")
         self.messageTableView.addGestureRecognizer(tapGesture)
@@ -47,11 +51,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var username = PFUser.currentUser()?.username
         
         newMessageObject["Text"] = self.messageTextField.text + " -" + username!
-        newMessageObject["User"] = PFUser.currentUser()?.username
+        newMessageObject["User"] = username
         newMessageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
                 self.retrieveMessages()
+                NSLog("\nsuccess")
+            }
+            else {
+                // There was a problem, check error.description
+                NSLog(error!.description)
+            }
+        }
+        
+        var newConvoObject: PFObject = PFObject(className: "Conversations")
+        
+        newConvoObject["recipientUser"] = self.recipient
+        newConvoObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            if (success) {
+                // The object has been saved.
                 NSLog("\nsuccess")
             }
             else {

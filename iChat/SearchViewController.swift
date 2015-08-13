@@ -61,6 +61,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if segue.identifier == searchSegueID {
             if let destination = segue.destinationViewController as? ViewController {
                 if let searchIndex =  self.usernameTableView.indexPathForSelectedRow()?.row {
+                    destination.recipient = searchUsername.text
                 }
             }
         }
