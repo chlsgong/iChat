@@ -95,6 +95,7 @@
                             <constraint firstItem="ZYL-BZ-ecc" firstAttribute="top" secondItem="l8u-Q6-HGD" secondAttribute="bottom" id="to7-n0-9mQ"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Edv-MT-aAT"/>
                     <connections>
                         <outlet property="dockViewHeightConstraint" destination="0fE-rY-TOS" id="LAX-K5-HrG"/>
                         <outlet property="messageNavigationItem" destination="pal-0q-zaL" id="FO3-zm-bdh"/>
@@ -105,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5350.5" y="731.5"/>
+            <point key="canvasLocation" x="5098" y="599"/>
         </scene>
         <!--Messages-->
         <scene sceneID="wvH-a9-Thr">
@@ -123,12 +124,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="MessageListCell" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MessageListCell" rowHeight="70" id="HQY-PP-X4C" userLabel="MessageListCell">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="MessageListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageListCell" rowHeight="70" id="HQY-PP-X4C" userLabel="MessageListCell" customClass="ConversationTableViewCell" customModule="iChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HQY-PP-X4C" id="78T-k9-cXv">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recipient Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsm-L6-seB">
+                                                    <rect key="frame" x="14" y="24" width="327" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDV-it-WLl">
+                                                    <rect key="frame" x="493" y="22" width="74" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="recipientLabel" destination="Fsm-L6-seB" id="ygF-bd-C7X"/>
+                                            <outlet property="timeStampLabel" destination="PDV-it-WLl" id="QSJ-Ta-ug4"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -354,7 +373,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sgy-xZ-LSh">
                                 <rect key="frame" x="45" y="199" width="311" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otv-un-94m">
                                 <rect key="frame" x="72" y="318" width="183" height="21"/>
