@@ -14,6 +14,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var messageListTableView: UITableView!
     
     var messageListArray: [String] = [String]()
+    var timeStampArray: [NSDate] = [NSDate]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,13 +36,23 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
         
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.messageListArray = [String]()
+            self.timeStampArray = [NSDate]()
             
             if let objects = objects as? [PFObject] {
                 for convoObject in objects {
                     let recipientUser: String? = (convoObject)["recipientUser"] as? String
+                    var timeStamp = convoObject.updatedAt as NSDate?
                     
                     if recipientUser != nil {
                         self.messageListArray.append(recipientUser!)
+                        println("+1 m")
+
+                        self.timeStampArray.append(timeStamp!)
+                        println("+1 t")
+                        let timeFormatter = NSDateFormatter()
+                        timeFormatter.dateFormat = "hh:mm a"
+                        println(timeFormatter.stringFromDate(timeStamp!))
+
                     }
                 }
             }
@@ -53,8 +64,13 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.messageListTableView.dequeueReusableCellWithIdentifier("MessageListCell") as! UITableViewCell
-        cell.textLabel?.text = self.messageListArray[indexPath.row]
+        let cell = self.messageListTableView.dequeueReusableCellWithIdentifier("MessageListCell") as! ConversationTableViewCell
+        cell.recipientLabel.text = self.messageListArray[indexPath.row]
+
+        
+        let timeFormatter = NSDateFormatter()
+        timeFormatter.dateFormat = "hh:mm a"
+        cell.timeStampLabel.text = timeFormatter.stringFromDate(self.timeStampArray[indexPath.row])
         return cell
     }
     

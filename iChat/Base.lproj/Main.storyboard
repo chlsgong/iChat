@@ -15,14 +15,14 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lE-rW-Ufg" userLabel="Dock View">
-                                <rect key="frame" x="0.0" y="549" width="600" height="51"/>
+                                <rect key="frame" x="0.0" y="616" width="375" height="51"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRV-cP-XRO">
-                                        <rect key="frame" x="546" y="11" width="46" height="30"/>
+                                        <rect key="frame" x="321" y="11" width="46" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="LzB-G4-KRw"/>
                                         </constraints>
@@ -34,7 +34,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="atd-Rr-voj">
-                                        <rect key="frame" x="8" y="11" width="530" height="30"/>
+                                        <rect key="frame" x="8" y="11" width="305" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -50,7 +50,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l8u-Q6-HGD">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem id="pal-0q-zaL">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="tfI-WA-s2V">
@@ -62,7 +62,7 @@
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ZYL-BZ-ecc">
-                                <rect key="frame" x="0.0" y="64" width="600" height="485"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="552"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCell" id="U4n-Pu-72B">
@@ -117,11 +117,11 @@
                         <viewControllerLayoutGuide type="bottom" id="lpW-Wn-Vu0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Y8E-Of-nL6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-zZ-V4P">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" restorationIdentifier="MessageListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageListCell" rowHeight="70" id="HQY-PP-X4C" userLabel="MessageListCell" customClass="ConversationTableViewCell" customModule="iChat" customModuleProvider="target">
@@ -136,17 +136,17 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDV-it-WLl">
-                                                    <rect key="frame" x="493" y="22" width="74" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12:00 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDV-it-WLl">
+                                                    <rect key="frame" x="292" y="18" width="83" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="recipientLabel" destination="Fsm-L6-seB" id="ygF-bd-C7X"/>
-                                            <outlet property="timeStampLabel" destination="PDV-it-WLl" id="QSJ-Ta-ug4"/>
+                                            <outlet property="recipientLabel" destination="Fsm-L6-seB" id="oKb-ih-ouv"/>
+                                            <outlet property="timeStampLabel" destination="PDV-it-WLl" id="ZLt-l5-acG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -161,13 +161,14 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="messageListTableView" destination="2eC-zZ-V4P" id="GK1-YM-SPH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hS-Hd-fG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4430" y="265"/>
+            <point key="canvasLocation" x="4429.5" y="264.5"/>
         </scene>
         <!--New Message-->
         <scene sceneID="izg-pp-cMs">
@@ -178,7 +179,7 @@
                         <viewControllerLayoutGuide type="bottom" id="PMo-be-XmI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8FA-b0-GRL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIa-jN-us6">

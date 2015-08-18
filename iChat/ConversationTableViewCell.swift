@@ -12,7 +12,7 @@ class ConversationTableViewCell: UITableViewCell {
 
     @IBOutlet weak var recipientLabel: UILabel!
     @IBOutlet weak var timeStampLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
