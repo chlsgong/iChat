@@ -20,6 +20,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var messageArray: [String] = [String]()
     var recipient: String = ""
     
+    var username = PFUser.currentUser()?.username
+    var newMessageObject: PFObject = PFObject(className: "Messages")
+    var newConvoObject: PFObject = PFObject(className: "Conversations")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -47,30 +51,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func sendButtonTapped(sender: UIButton) {
         self.sendButton.enabled = false
         
-        var newMessageObject: PFObject = PFObject(className:"Messages")
-        var username = PFUser.currentUser()?.username
-        
-        newMessageObject["Text"] = self.messageTextField.text + " -" + username!
-        newMessageObject["User"] = username
-        newMessageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+        self.newMessageObject["Text"] = self.messageTextField.text + " -" + self.username!
+        self.newMessageObject["User"] = self.username
+        self.newMessageObject["recipient"] = self.recipient
+        self.newMessageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if (success) {
                 // The object has been saved.
                 self.retrieveMessages()
-                NSLog("\nsuccess")
-            }
-            else {
-                // There was a problem, check error.description
-                NSLog(error!.description)
-            }
-        }
-        
-        var newConvoObject: PFObject = PFObject(className: "Conversations")
-        
-        newConvoObject["recipientUser"] = self.recipient
-        newConvoObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            if (success) {
-                // The object has been saved.
-                NSLog("\nsuccess")
+                self.addNewConvo()
             }
             else {
                 // There was a problem, check error.description
@@ -85,6 +73,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    func addNewConvo() {
+        var query: PFQuery = PFQuery(className: "Conversations")
+        query.whereKey("recipientUser", equalTo: recipient)
+        query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+
+            if objects!.count == 0 {
+                self.newConvoObject["recipientUser"] = self.recipient
+                self.newConvoObject["sender"] = self.username
+                self.newConvoObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                    if (success) {
+                        // The object has been saved.
+                        NSLog("\nsuccess")
+                    }
+                    else {
+                        // There was a problem, check error.description
+                        NSLog(error!.description)
+                    }
+                }
+            }
+
+        }
+    }
+    
     func tableViewTapped() {
         self.messageTextField.endEditing(true)
     }
@@ -92,6 +103,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func retrieveMessages() {
         var query: PFQuery = PFQuery(className: "Messages")
         
+        query.whereKey("User", equalTo: username!)
+        query.whereKey("recipient", equalTo: recipient)
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.messageArray = [String]()
             
@@ -104,7 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
             }
-            
+
             dispatch_async(dispatch_get_main_queue()) {
                 self.messageTableView.reloadData()
             }

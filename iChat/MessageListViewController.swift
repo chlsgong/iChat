@@ -13,13 +13,14 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBOutlet weak var messageListTableView: UITableView!
     
+    let convoSegueID = "ConvoSegue"
     var messageListArray: [String] = [String]()
-    var timeStampArray: [NSDate] = [NSDate]()
+    
+    var username = PFUser.currentUser()?.username
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         self.messageListTableView.delegate = self
         self.messageListTableView.dataSource = self
         
@@ -34,49 +35,48 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     func retrieveConvo() {
         var query: PFQuery = PFQuery(className: "Conversations")
         
+        query.whereKey("sender", equalTo: username!)
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.messageListArray = [String]()
-            self.timeStampArray = [NSDate]()
             
             if let objects = objects as? [PFObject] {
                 for convoObject in objects {
                     let recipientUser: String? = (convoObject)["recipientUser"] as? String
-                    var timeStamp = convoObject.updatedAt as NSDate?
                     
                     if recipientUser != nil {
                         self.messageListArray.append(recipientUser!)
-                        println("+1 m")
-
-                        self.timeStampArray.append(timeStamp!)
-                        println("+1 t")
-                        let timeFormatter = NSDateFormatter()
-                        timeFormatter.dateFormat = "hh:mm a"
-                        println(timeFormatter.stringFromDate(timeStamp!))
-
                     }
                 }
             }
-            
+
             dispatch_async(dispatch_get_main_queue()) {
                 self.messageListTableView.reloadData()
             }
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == convoSegueID {
+            if let destination = segue.destinationViewController as? ViewController {
+                    let indexPath = self.messageListTableView.indexPathForSelectedRow();
+                
+                    let currentCell = self.messageListTableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
+                    destination.recipient = currentCell.textLabel!.text!
+            }
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.messageListTableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.messageListTableView.dequeueReusableCellWithIdentifier("MessageListCell") as! ConversationTableViewCell
-        cell.recipientLabel.text = self.messageListArray[indexPath.row]
-
-        
-        let timeFormatter = NSDateFormatter()
-        timeFormatter.dateFormat = "hh:mm a"
-        cell.timeStampLabel.text = timeFormatter.stringFromDate(self.timeStampArray[indexPath.row])
+        let cell = self.messageListTableView.dequeueReusableCellWithIdentifier("MessageListCell") as! UITableViewCell
+        cell.textLabel?.text = self.messageListArray[indexPath.row]
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messageListArray.count
     }
-
-
 }
