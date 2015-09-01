@@ -73,22 +73,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    // Check if recipient is already on conversation list else add them to message list
     func addNewConvo() {
         var query: PFQuery = PFQuery(className: "Conversations")
-        query.whereKey("recipientUser", equalTo: recipient)
+        query.selectKeys(["recipientUser", "sender"])
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
-
-            if objects!.count == 0 {
-                self.newConvoObject["recipientUser"] = self.recipient
-                self.newConvoObject["sender"] = self.username
-                self.newConvoObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-                    if (success) {
-                        // The object has been saved.
-                        NSLog("\nsuccess")
+            
+            if let objects = objects as? [PFObject] {
+                var inConvo: Bool = false
+                for convoObject in objects {
+                    let recipientUser: String? = (convoObject)["recipientUser"] as? String
+                    let sender: String? = (convoObject)["sender"] as? String
+                    
+                    if ((recipientUser == self.username && sender == self.recipient) || (sender == self.username && recipientUser == self.recipient)) {
+                        inConvo = true
                     }
-                    else {
-                        // There was a problem, check error.description
-                        NSLog(error!.description)
+                }
+                
+                if !inConvo {
+                    println("test")
+                    self.newConvoObject["recipientUser"] = self.recipient
+                    self.newConvoObject["sender"] = self.username
+                    self.newConvoObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                        if (success) {
+                            // The object has been saved.
+                            NSLog("\nsuccess")
+                        }
+                        else {
+                            // There was a problem, check error.description
+                            NSLog(error!.description)
+                        }
                     }
                 }
             }
@@ -102,26 +116,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func retrieveMessages() {
         var query: PFQuery = PFQuery(className: "Messages")
+        let recipientAndUser: [String] = [self.username!, self.recipient]
         
-        query.whereKey("User", equalTo: username!)
-        query.whereKey("recipient", equalTo: recipient)
+        query.whereKey("recipient", containedIn: recipientAndUser)
+        query.addAscendingOrder("createdAt")
+        
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.messageArray = [String]()
             
             if let objects = objects as? [PFObject] {
                 for messageObject in objects {
-                    let messageText: String? = (messageObject)["Text"] as? String
+                    let recipientUser: String? = (messageObject)["recipient"] as? String
+                    let sender: String? = (messageObject)["User"] as? String
                     
-                    if messageText != nil {
-                        self.messageArray.append(messageText!)
+                    if ((recipientUser == self.username && sender == self.recipient) || (recipientUser == self.recipient && sender == self.username)) {
+                            let messageText: String? = (messageObject)["Text"] as? String
+                    
+                            if messageText != nil {
+                                self.messageArray.append(messageText!)
+                        }
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.messageTableView.reloadData()
                     }
                 }
             }
-
-            dispatch_async(dispatch_get_main_queue()) {
-                self.messageTableView.reloadData()
-            }
+            
         }
+        
     }
     
     // MARK: textField Functions
@@ -145,7 +168,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         UIView.animateWithDuration(0.5, animations: {
             self.dockViewHeightConstraint.constant = 51
             self.view.layoutIfNeeded()
-            })
+        })
     }
     
     // MARK: tableView Functions

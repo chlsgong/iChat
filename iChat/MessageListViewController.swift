@@ -34,16 +34,23 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     
     func retrieveConvo() {
         var query: PFQuery = PFQuery(className: "Conversations")
+
+        query.selectKeys(["sender", "recipientUser"])
+        query.addAscendingOrder("createdAt")
         
-        query.whereKey("sender", equalTo: username!)
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.messageListArray = [String]()
             
             if let objects = objects as? [PFObject] {
                 for convoObject in objects {
                     let recipientUser: String? = (convoObject)["recipientUser"] as? String
+                    let sender: String? = (convoObject)["sender"] as? String
+
+                    if(recipientUser == self.username! && sender != nil) {
+                        self.messageListArray.append(sender!)
+                    }
                     
-                    if recipientUser != nil {
+                    else if (sender == self.username! && recipientUser != nil) {
                         self.messageListArray.append(recipientUser!)
                     }
                 }
@@ -64,6 +71,10 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
                     destination.recipient = currentCell.textLabel!.text!
             }
         }
+    }
+    
+    @IBAction func signOutButtonPressed(sender: UIButton) {
+        PFUser.logOut()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

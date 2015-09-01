@@ -34,6 +34,7 @@
 		D194E6381B17F59700ACAED5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D194E6371B17F59700ACAED5 /* libz.dylib */; };
 		D194E63A1B17F5AD00ACAED5 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D194E6391B17F5AD00ACAED5 /* libsqlite3.dylib */; };
 		D194E63C1B18138700ACAED5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194E63B1B18138700ACAED5 /* ViewController.swift */; };
+		D1B8283E1B8E112800B4BC1B /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B8283D1B8E112800B4BC1B /* ConversationTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		D194E6371B17F59700ACAED5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D194E6391B17F5AD00ACAED5 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D194E63B1B18138700ACAED5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D1B8283D1B8E112800B4BC1B /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				D15961B81B2A49EF0032E02B /* LoginViewController.swift */,
 				19D5363D1B79D28000F89109 /* SignUpViewController.swift */,
 				D194E63B1B18138700ACAED5 /* ViewController.swift */,
+				D1B8283D1B8E112800B4BC1B /* ConversationTableViewCell.swift */,
 				D1302A0B1B5B2D0800904C28 /* MessageListViewController.swift */,
 				D1302A0D1B5B2D4400904C28 /* SearchViewController.swift */,
 				D194E5FC1B17E78F00ACAED5 /* Main.storyboard */,
@@ -303,6 +306,7 @@
 				19D5363E1B79D28000F89109 /* SignUpViewController.swift in Sources */,
 				D1302A0E1B5B2D4400904C28 /* SearchViewController.swift in Sources */,
 				D15961B91B2A49EF0032E02B /* LoginViewController.swift in Sources */,
+				D1B8283E1B8E112800B4BC1B /* ConversationTableViewCell.swift in Sources */,
 				D194E63C1B18138700ACAED5 /* ViewController.swift in Sources */,
 				D1302A0C1B5B2D0800904C28 /* MessageListViewController.swift in Sources */,
 				D194E5F91B17E78F00ACAED5 /* AppDelegate.swift in Sources */,

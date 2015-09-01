@@ -106,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5203.5" y="802.5"/>
+            <point key="canvasLocation" x="5350.5" y="786.5"/>
         </scene>
         <!--Messages-->
         <scene sceneID="wvH-a9-Thr">
@@ -130,7 +130,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HQY-PP-X4C" id="78T-k9-cXv">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recipient Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsm-L6-seB">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsm-L6-seB">
                                                     <rect key="frame" x="14" y="24" width="327" height="21"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -147,6 +147,7 @@
                                         <connections>
                                             <outlet property="recipientLabel" destination="Fsm-L6-seB" id="oKb-ih-ouv"/>
                                             <outlet property="timeStampLabel" destination="PDV-it-WLl" id="ZLt-l5-acG"/>
+                                            <segue destination="vXZ-lx-hvc" kind="presentation" identifier="ConvoSegue" id="Lij-Jb-anf"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -155,6 +156,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Messages" id="yBd-xj-biI">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="pu9-qP-Ssi">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="k1f-1c-JDI">
+                                <rect key="frame" x="-23" y="-15" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="signOutButtonPressed:" destination="AE1-ac-oiI" eventType="touchUpInside" id="oxw-ZT-SJX"/>
+                                    <segue destination="JYD-Ld-pWi" kind="presentation" id="QUc-Oa-ZPN"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="SEP-oy-EHq">
                             <connections>
                                 <segue destination="a5A-Bj-eNt" kind="show" id="5tK-de-t7e"/>
@@ -168,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7hS-Hd-fG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4429.5" y="264.5"/>
+            <point key="canvasLocation" x="4438.5" y="298.5"/>
         </scene>
         <!--New Message-->
         <scene sceneID="izg-pp-cMs">
@@ -496,5 +510,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="9T0-Kp-jZu"/>
+        <segue reference="Lij-Jb-anf"/>
     </inferredMetricsTieBreakers>
 </document>
