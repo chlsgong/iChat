@@ -36,7 +36,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
         var query: PFQuery = PFQuery(className: "Conversations")
 
         query.selectKeys(["sender", "recipientUser"])
-        query.addAscendingOrder("createdAt")
+        query.addDescendingOrder("createdAt")
         
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.messageListArray = [String]()
@@ -65,7 +65,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == convoSegueID {
             if let destination = segue.destinationViewController as? ViewController {
-                    let indexPath = self.messageListTableView.indexPathForSelectedRow();
+                    let indexPath = self.messageListTableView.indexPathForSelectedRow()
                 
                     let currentCell = self.messageListTableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
                     destination.recipient = currentCell.textLabel!.text!
@@ -75,6 +75,17 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func signOutButtonPressed(sender: UIButton) {
         PFUser.logOut()
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            self.messageListArray.removeAtIndex(indexPath.row)
+            self.messageListTableView.reloadData()
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
