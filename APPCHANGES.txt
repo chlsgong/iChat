@@ -1,0 +1,16 @@
+Changes to the app
+
+UI:
+- Auto layout has to fit all phone sizes 
+- back button on sign up page 
+- color of navigation
+- color scheme
+- dismiss keyboard
+- search status
+- message display 
+- username to case insensitive 
+
+Backend:
+- deletion
+- automatic reload in messages 
+- save login</div>
