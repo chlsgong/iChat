@@ -24,6 +24,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var newMessageObject: PFObject = PFObject(className: "Messages")
     var newConvoObject: PFObject = PFObject(className: "Conversations")
     
+    lazy var refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -38,7 +40,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tableViewTapped")
         self.messageTableView.addGestureRecognizer(tapGesture)
         
-        self.retrieveMessages()
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "retrieveMessages", userInfo: nil, repeats: true)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
     }
@@ -51,7 +53,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func sendButtonTapped(sender: UIButton) {
         self.sendButton.enabled = false
         
-        self.newMessageObject["Text"] = self.messageTextField.text + " -" + self.username!
+        self.newMessageObject = PFObject(className: "Messages")
+        self.newMessageObject["Text"] = self.messageTextField.text! + " -" + self.username!
         self.newMessageObject["User"] = self.username
         self.newMessageObject["recipient"] = self.recipient
         self.newMessageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
@@ -75,7 +78,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Check if recipient is already on conversation list else add them to message list
     func addNewConvo() {
-        var query: PFQuery = PFQuery(className: "Conversations")
+        let query: PFQuery = PFQuery(className: "Conversations")
         query.selectKeys(["recipientUser", "sender"])
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             
@@ -91,7 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 
                 if !inConvo {
-                    println("test")
+                    self.newConvoObject = PFObject(className: "Conversations")
                     self.newConvoObject["recipientUser"] = self.recipient
                     self.newConvoObject["sender"] = self.username
                     self.newConvoObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
@@ -115,7 +118,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func retrieveMessages() {
-        var query: PFQuery = PFQuery(className: "Messages")
+        let query: PFQuery = PFQuery(className: "Messages")
         let recipientAndUser: [String] = [self.username!, self.recipient]
         
         query.whereKey("recipient", containedIn: recipientAndUser)
@@ -134,6 +137,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     
                             if messageText != nil {
                                 self.messageArray.append(messageText!)
+                                //println(self.messageArray.count)
                         }
                     }
                     
@@ -151,7 +155,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func keyboardWillShow(sender: NSNotification) {
         if let userInfo = sender.userInfo {
-            if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size.height {
+            if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
                 
                 self.view.layoutIfNeeded()
                 UIView.animateWithDuration(0.5, animations: { () -> Void in
@@ -162,10 +166,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
     }
-    
+
     func textFieldDidEndEditing(textField: UITextField) {
         self.view.layoutIfNeeded()
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animateWithDuration(0.25, animations: {
             self.dockViewHeightConstraint.constant = 51
             self.view.layoutIfNeeded()
         })
@@ -174,7 +178,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: tableView Functions
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.messageTableView.dequeueReusableCellWithIdentifier("MessageCell") as! UITableViewCell
+        let cell = self.messageTableView.dequeueReusableCellWithIdentifier("MessageCell") as UITableViewCell!
         cell.textLabel?.text = self.messageArray[indexPath.row]
         return cell
     }

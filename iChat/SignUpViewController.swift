@@ -16,12 +16,12 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTF: UITextField!
     
     @IBAction func doneButtonPressed(sender: AnyObject) {
-        var user = PFUser()
+        let user = PFUser()
         
         let query = PFUser.query()
-        query?.whereKey("username", equalTo: self.usernameTF.text)
+        query?.whereKey("username", equalTo: self.usernameTF.text!)
         
-        var count = query?.findObjects()?.count
+        _ = query?.findObjects()?.count
         
         if (query?.findObjects()?.count == 0)
         {
@@ -41,7 +41,7 @@ class SignUpViewController: UIViewController {
             user.signUpInBackgroundWithBlock({
                 (succeeded: Bool, error: NSError?) -> Void in
                 if let error = error {
-                    let errorString = error.userInfo?["error"] as? NSString
+                    _ = error.userInfo["error"] as? NSString
                 } else {
                     
                 }
@@ -60,6 +60,12 @@ class SignUpViewController: UIViewController {
             let passMisMatchAlert = UIAlertView(title: "Passwords do not match!", message: "Please check and try again", delegate: nil, cancelButtonTitle: "Okay")
             passMisMatchAlert.show()
         }
+    }
+    
+    @IBAction func tableViewTapped(sender: UITapGestureRecognizer) {
+        self.usernameTF.endEditing(true)
+        self.passwordTF.endEditing(true)
+        self.confirmPasswordTF.endEditing(true)
     }
     
     override func viewDidLoad() {

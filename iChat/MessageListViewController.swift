@@ -24,7 +24,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
         self.messageListTableView.delegate = self
         self.messageListTableView.dataSource = self
         
-        self.retrieveConvo()
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "retrieveConvo", userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +33,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func retrieveConvo() {
-        var query: PFQuery = PFQuery(className: "Conversations")
+        let query: PFQuery = PFQuery(className: "Conversations")
 
         query.selectKeys(["sender", "recipientUser"])
         query.addDescendingOrder("createdAt")
@@ -65,7 +65,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == convoSegueID {
             if let destination = segue.destinationViewController as? ViewController {
-                    let indexPath = self.messageListTableView.indexPathForSelectedRow()
+                    let indexPath = self.messageListTableView.indexPathForSelectedRow
                 
                     let currentCell = self.messageListTableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
                     destination.recipient = currentCell.textLabel!.text!
@@ -93,7 +93,7 @@ class MessageListViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.messageListTableView.dequeueReusableCellWithIdentifier("MessageListCell") as! UITableViewCell
+        let cell = self.messageListTableView.dequeueReusableCellWithIdentifier("MessageListCell") as UITableViewCell!
         cell.textLabel?.text = self.messageListArray[indexPath.row]
         return cell
     }

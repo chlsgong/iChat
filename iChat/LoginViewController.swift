@@ -16,11 +16,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
+    //var loggedInUser: PFUser = PFUser.currentUser()!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
+    
+    /*override func viewDidAppear(animated: Bool) {
+        if(loggedInUser != nil) {
+            self.performSegueWithIdentifier("LoginSegue", sender: nil)
+        }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -28,7 +35,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(sender: UIButton) {
-        PFUser.logInWithUsernameInBackground(self.usernameTF.text, password:self.passwordTF.text) {
+        PFUser.logInWithUsernameInBackground(self.usernameTF.text!, password:self.passwordTF.text!) {
             (user: PFUser?, error: NSError?) -> Void in
             if user != nil {
                 self.performSegueWithIdentifier("LoginSegue", sender: nil)
@@ -40,14 +47,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signUpButtonPressed(sender: UIButton) {
-        var user = PFUser()
+        let user = PFUser()
         user.username = self.usernameTF.text
         user.password = self.passwordTF.text
         
         user.signUpInBackgroundWithBlock {
             (succeeded: Bool, error: NSError?) -> Void in
             if let error = error {
-                let errorString = error.userInfo?["error"] as? NSString
+                _ = error.userInfo["error"] as? NSString
             }
             else {
             }

@@ -14,6 +14,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchUsername: UITextField!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var usernameTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let searchSegueID = "SearchSegue"
     var userArray:[String] = [String]()
@@ -33,10 +34,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     @IBAction func doneButtonTapped(sender: UIButton) {
+        self.activityIndicator.startAnimating()
         self.doneButton.enabled = false
         
-        var query: PFQuery = PFQuery(className: "_User")
-        query.whereKey("username", equalTo: searchUsername.text)
+        let query: PFQuery = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: searchUsername.text!)
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             self.userArray = [String]()
             
@@ -53,6 +55,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dispatch_async(dispatch_get_main_queue()) {
                 self.usernameTableView.reloadData()
                 self.doneButton.enabled = true
+                self.activityIndicator.stopAnimating()
             }
         }
     }
@@ -60,11 +63,15 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == searchSegueID {
             if let destination = segue.destinationViewController as? ViewController {
-                if let searchIndex =  self.usernameTableView.indexPathForSelectedRow()?.row {
-                    destination.recipient = searchUsername.text
+                if let _ =  self.usernameTableView.indexPathForSelectedRow?.row {
+                    destination.recipient = searchUsername.text!
                 }
             }
         }
+    }
+    
+    @IBAction func tableViewTapped(sender: UITapGestureRecognizer) {
+        self.searchUsername.endEditing(true)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -72,7 +79,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.usernameTableView.dequeueReusableCellWithIdentifier("UsernameCell") as! UITableViewCell
+        let cell = self.usernameTableView.dequeueReusableCellWithIdentifier("UsernameCell") as UITableViewCell!
         cell.textLabel?.text = self.userArray[indexPath.row]
         return cell
     }
