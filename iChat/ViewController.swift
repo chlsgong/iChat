@@ -52,7 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.sendButton.enabled = false
         
         self.newMessageObject = PFObject(className: "Messages")
-        self.newMessageObject["Text"] = self.messageTextField.text! + " -" + self.username!
+        self.newMessageObject["Text"] = self.username! + ": " + self.messageTextField.text!
         self.newMessageObject["User"] = self.username
         self.newMessageObject["recipient"] = self.recipient
         self.newMessageObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
