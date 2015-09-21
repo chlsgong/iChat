@@ -253,7 +253,7 @@
 				TargetAttributes = {
 					D194E5F21B17E78F00ACAED5 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = PSC5Z4HE75;
+						DevelopmentTeam = MSX86K838U;
 					};
 					D194E6071B17E78F00ACAED5 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -451,7 +451,7 @@
 				);
 				INFOPLIST_FILE = iChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.charles.iChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chls.iChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -470,7 +470,7 @@
 				);
 				INFOPLIST_FILE = iChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.charles.iChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chls.iChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
