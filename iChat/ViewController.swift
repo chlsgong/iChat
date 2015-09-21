@@ -24,8 +24,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var newMessageObject: PFObject = PFObject(className: "Messages")
     var newConvoObject: PFObject = PFObject(className: "Conversations")
     
-    lazy var refreshControl = UIRefreshControl()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

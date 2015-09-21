@@ -16,18 +16,16 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
-    //var loggedInUser: PFUser = PFUser.currentUser()!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    /*override func viewDidAppear(animated: Bool) {
-        if(loggedInUser != nil) {
+    override func viewDidAppear(animated: Bool) {
+        if(PFUser.currentUser()?.username != nil) {
             self.performSegueWithIdentifier("LoginSegue", sender: nil)
         }
-    }*/
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

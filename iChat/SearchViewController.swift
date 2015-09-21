@@ -16,7 +16,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var usernameTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    let searchSegueID = "SearchSegue"
     var userArray:[String] = [String]()
     
     override func viewDidLoad() {
@@ -61,9 +60,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == searchSegueID {
+        if segue.identifier == "SearchSegue" {
             if let destination = segue.destinationViewController as? ViewController {
-                if let _ =  self.usernameTableView.indexPathForSelectedRow?.row {
+                if let _ = self.usernameTableView.indexPathForSelectedRow?.row {
                     destination.recipient = searchUsername.text!
                 }
             }
